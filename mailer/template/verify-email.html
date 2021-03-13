@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="main-body">
+    <h1><img src="https://webstockreview.net/images/traveling-clipart-retirement.jpg" height="32px" width="32px">Everrover</h1>
+    <h2>Good to have you aboard, {name}</h2>
+    <h5>Just one more step to go</h5>
+    <a class="button" href={link} target="_blank">Verify your account</a>
+    <div>
+      <p>If the above link doesn't work click on the link below.</p>
+      <p><a>{link}</a></p>
+    </div>
+  </div>
+</body>
+<style>
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  *{
+    font-family: 'Courier New', Courier, monospace;
+  }
+  h1{
+    width: 100%;
+    text-align: center;
+    background-color: aqua;
+    padding: 2rem 1rem 0.5rem 1rem;
+  } 
+  h2, h5{
+    width: fit-content;
+  }
+  h5{
+    font-style: italic;
+  }
+  .main-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0rem;
+    padding: 2rem;
+    background-color: bisque;
+  }
+</style>
+</html>
