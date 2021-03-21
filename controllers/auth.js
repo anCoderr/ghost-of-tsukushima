@@ -124,19 +124,19 @@ const signin = async (req, res, next) => {
   const signinToken = await createSigninToken(user_id, user_email)
   LOG.info("[Signin] Token creation response", signinToken)
 
-  if( signinToken && signinToken.status ){ return res.status(200).send({token: signinToken.body.token, expiration_time: signinToken.body.expiration_time}) }    
+  if( signinToken && signinToken.status ){ return res.status(200).send(message(true, "User sign in complete", {token: signinToken.body.token, expiration_time: signinToken.body.expiration_time})) }
   else{ return res.status(500).send(signinToken) }
 }
 
 const signout = async (req, res, next) => {
   const token = req.headers.authorization
-  LOG.info('[Signout] req received. params: ', token) 
+  LOG.info('[Signout] req received. params: ', "token-is-a-secret") 
   // LOG.info('[Signout] req received. params: ', "Token-is-a-secret") 
 
   const deleteTokenResponse = await deleteExistingUserSigninToken(token)
-  LOG.info('[Signout] delete signout response rcv.ed. Response: ', token)
+  LOG.info('[Signout] delete signout response rcv.ed. Response: ', deleteTokenResponse)
 
-  if( deleteTokenResponse.status ){ return res.status(200).send(deleteTokenResponse) }    
+  if( deleteTokenResponse && deleteTokenResponse.status ){ return res.status(200).send(deleteTokenResponse) }    
   else{ return res.status(500).send(deleteTokenResponse) }
 }
 

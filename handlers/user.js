@@ -54,7 +54,7 @@ const verifyUserPassword = async (username, email, password) => {
   if(!((username||email) && password)){ return message( false, "Password and username(or email) must be provided") }
 
   const user = await User.findOne({where: {username, is_active: true, is_registered: true}})
-  if(!user){ return message( false, "Password invalid for user: "+username, {}) }
+  if(!user){ return message( false, "Unable to find user: "+username, {}) }
   
   const passwordValid = await bcrypt.compareSync(password, user.password)
   if(!passwordValid){ return message( false, "Password invalid for user: "+username, {})}

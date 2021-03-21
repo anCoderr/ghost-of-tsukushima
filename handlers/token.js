@@ -99,7 +99,11 @@ const deleteExistingUserSigninToken = async (token) => {
   }
   const decToken = await validateToken(token, "signin", true) // validate and delete token
   
-  return decToken
+  if(decToken && decToken.status){
+    return message(true, "associated signin token was found and deleted!")
+  }else{
+    return message(false, 'unable to signout', decToken)
+  }
 }
 
 const validateExistingUserSigninToken = async (token) => {
