@@ -7,8 +7,8 @@ const {
 const router = express.Router()
 
 router.get('/check-presence', checkPresence)
-// router.post('/user', signin)
-// router.get('/user', signfout)
-// router.get('/me', me)
+router.get('/get-me', checkPresence)
+router.post('/change-me', checkPresence)
+router.delete('/remove-me', checkPresence)
 
 module.exports = router

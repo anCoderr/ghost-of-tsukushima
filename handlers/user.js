@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs')
 const CONFIGS = require('../configs/index');
 const {message} = require("../utils/messageGenerator");
 const clean = require("../utils/clean");
+const { use } = require("../mailer/transporter");
 
-const createUser = async ({username, password, email, profile_id}) => {
+const createUser = async ({username, password, phone, email, profile_id}) => {
   const user = await User.create({
-    username, email,
+    username, email, phone,
     profile_id: profile_id,
     password: bcrypt.hashSync(password, CONFIGS.SALT_ROUNDS_NUMBER),
     role: "user", is_active: true, is_registered: false
@@ -20,19 +21,19 @@ const createUser = async ({username, password, email, profile_id}) => {
   }
 }
 
-const checkIfPresent = async (username, email) => {
+const checkIfPresent = async (username, email, phone) => {
   const userWithEmail = await User.findOne({where: {email}})
   const userWithUsername = await User.findOne({where: {username}})
-  if(userWithEmail && userWithUsername){
-    return message(true, "User with email and username present!")
-  }
-  if(userWithEmail){
+  const userWithPhone = phone? await User.findOne({where: {phone}}): null
+  if(userWithPhone){
+    return message(true, "User with phone present!")
+  }else if(userWithEmail){
     return message(true, "User with email present!")
-  }
-  if(userWithUsername){
+  }else if(userWithUsername){
     return message(true, "User with username present!")
+  }else{
+    return message(false, "User with email, phone or password absent")
   }
-  return message(false, "User with email and password absent")
 }
 
 const verifyUserRegistration = async (user_id) => {
@@ -45,7 +46,7 @@ const verifyUserRegistration = async (user_id) => {
   if(!user){
     return message(false, "Unable to register user")
   }else{
-    return message(true, "Registered user")
+    return message(true, "Registered user", user)
   }
 }
 

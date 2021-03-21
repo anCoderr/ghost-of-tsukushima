@@ -44,9 +44,9 @@ const createUserRegistrationToken = async ({user_id, email}) => {
   const userToken = await createUserToken(accVerificationToken, "verification", Date.now(), configs.VERIFY_ACCOUNT_TOKEN_TTL*1000, now+configs.VERIFY_ACCOUNT_TOKEN_TTL*1000, user_id)
 
   if(userToken.status){
-    return message(true, "Unable to CREATE user registration token", userToken.body)
+    return message(true,  "Created user reg Token", userToken.body)
   }else{
-    return message(false, "Created user reg Token")
+    return message(false,"Unable to CREATE user registration token")
   }
 }
 

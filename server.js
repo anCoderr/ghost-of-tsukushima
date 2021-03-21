@@ -25,7 +25,7 @@ const app = express()
 
 // Add cors
 const corsOptions = {
-  origin: "http://localhost:5005"
+  origin: "localhost"
 }
 app.use(cors(corsOptions))
 
@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true })) // parse content-type - appli
 
 // mount routers
 app.use("/api/v1/auth", auth)
+// app.use("/api/v1/me", user)
 
 // start server
 const PORT = process.env.PORT || 5001;

@@ -1,7 +1,11 @@
 const transporter = require('./transporter');
+const dayjs = require('dayjs');
+
 const {
   DEFAULT_SENDER
-} = require("./configs")
+} = require("./configs");
+
+const templates = require('./templates');
 
 const generateMailContent = (mailType, content) => {
   let mailContent = null
@@ -46,6 +50,15 @@ const trialRun = async ()=>{
   }
 }
 
-sendMail("deyol.abhishek@gmail.com", "Everrover: verify your email account", "VERIFY_ACCOUNT", {name: "Anurag Deyol", link: "https://github.com/abhishek123"})
+// sendMail("deyol.abhishek@gmail.com", "Everrover: verify your email account", "VERIFY_ACCOUNT", {name: "Anurag Deyol", link: "https://github.com/abhishek123"})
 
-module.exports = {sendMail, trialRun}
+const sendRegistrationToken = async (email, name, token, time)=>{
+  const link = "http://localhost:5001/verify-user/"+token
+  sendMail(email, "EVERROVER: Account verification", null,
+    templates.VERIFY_ACCOUNT
+    .replace("{NAME}", name)
+    .replace("{VERIFICATION_LINK}", link)
+    .replace("{EXPIRATION_TIME}", dayjs.unix(time).format("DD[th] MMM, YYYY [at] HH:mm:ss")))
+}
+
+module.exports = {sendMail, trialRun, sendRegistrationToken}

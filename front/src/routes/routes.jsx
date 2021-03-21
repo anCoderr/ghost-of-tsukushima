@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import PropTypes from 'prop-types'
 import {NotFound} from '../pages/index.js'
 import {
@@ -7,6 +7,16 @@ import {
 import { Logo } from '../components/index.js'
 
 function Routes(props) {
+  const {history} = props
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  useEffect(()=>{
+    const setAuthState = async ()=>{
+      const authItem = localStorage.getItem("auth")
+      const authResponse = await authService.sendAuthItem(authItem)
+      authResponse.isAuthenticated? setIsAuthenticated(true): setIsAuthenticated(false)
+    }
+    setAuthState()
+  })
   return (
     <div className="">
     <nav className="navbar is-transparent" role='navigation' aria-label="main-navigation">

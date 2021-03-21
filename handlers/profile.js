@@ -9,12 +9,11 @@ const createUserProfile = async ({name, profile_photo, nationality, bg_photo, do
     name, profile_photo, gender,
     nationality, bg_photo, dob, user_id,
   })
-  console.log()
 
   if(!userProfile){
-    return message(false, "Unable to update userProfile")
+    return message(false, "Unable to create userProfile")
   }else{
-    return message(true, "Updated userProfile", userProfile.dataValues)
+    return message(true, "created userProfile", userProfile.dataValues)
   }
 }
 

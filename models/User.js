@@ -18,7 +18,11 @@ const generateUser = (sequelize) => {
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: true
     },
     password: {
       type: Sequelize.STRING(500),

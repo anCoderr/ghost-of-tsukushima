@@ -4,7 +4,7 @@ const Sequelize = require('sequelize')
 const configs = require("../configs/db.config.js")
 const generateUser = require("./User.js")
 const generateUserProfile = require("./UserProfile.js")
-const generateUserEntry = require("./UserEntry.js")
+const generateUserConnection = require("./UserConnection.js")
 const generateUserFile = require("./UserFile.js")
 const generateUserToken = require("./UserToken.js")
 
@@ -22,13 +22,13 @@ const sequelize = new Sequelize({
 
 // Get models
 const User = generateUser(sequelize)
-const UserEntry = generateUserEntry(sequelize)
+const UserConnection = generateUserConnection(sequelize)
 const UserProfile = generateUserProfile(sequelize)
 const UserFile = generateUserFile(sequelize)
 const UserToken = generateUserToken(sequelize)
 
 // Establish relationships
-User.hasMany(UserEntry, {foreignKey: 'user_id'})
+User.hasMany(UserConnection, {foreignKey: 'user_id'})
 User.hasMany(UserFile, {foreignKey: 'user_id'})
 User.hasMany(UserToken, {foreignKey: 'user_id'})
 User.hasOne(UserProfile, {foreignKey: "user_id"})
@@ -47,7 +47,7 @@ const connectDB = async (forceReset = false) => {
 }
 
 const db = {
-  User, UserProfile, UserEntry,
+  User, UserProfile, UserConnection,
   UserFile, UserToken,
   ROLES: ["user", "admin", "moderator"],
   sequelize: sequelize,
