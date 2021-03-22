@@ -17,12 +17,15 @@ const router = express.Router()
  */
 router.post('/user/create-user', signup)
 router.put('/user/verify-user', verifyUserAccount)
+router.post('/user/signin', signin)
+router.put('/user/signout', signout)
+router.get('/user/me', validateUser)
+router.get('/user/forgot-password', validateUser)
+router.get('/user/reset-password', validateUser)
+
 /**
   Sign up via external connections : google, github, fb
   The external connection is to be mentioned in the :source param
  */
-router.post('/user/signin', signin)
-router.put('/user/signout', signout)
-router.get('/user/me', validateUser)
 
 module.exports = router
